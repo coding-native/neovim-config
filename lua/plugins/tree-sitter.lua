@@ -13,6 +13,7 @@ ts.setup {
     disable = {},
   },
   ensure_installed = {
+    "bicep",
     "bash",
     "c",
     "css",
@@ -23,6 +24,7 @@ ts.setup {
     "dockerfile",
     "go",
     "graphql",
+    "hcl",
     "html",
     "jsdoc",
     "json",
@@ -39,6 +41,7 @@ ts.setup {
     "terraform",
     "toml",
     "tsx",
+    "twig",
     "yaml",
   },
   autotag = {
@@ -53,3 +56,5 @@ ts.setup {
 
 local parser_config = require 'nvim-treesitter.parsers'.get_parser_configs()
 parser_config.tsx.filetype_to_parsername = {'javascript', 'typescript.tsx'}
+
+vim.treesitter.language.register('twig', 'tera')

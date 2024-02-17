@@ -21,6 +21,7 @@ require "plugins.lualine"
 require "plugins.symbols"
 require "plugins.tree"
 require "plugins.devcontainers"
+require "plugins.theme"
 
 vim.cmd [[ colorscheme tokyonight-night ]]
 vim.lsp.set_log_level("debug")
