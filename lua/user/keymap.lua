@@ -17,7 +17,6 @@ vim.keymap.set('n', 'C-x', [[:close<CR>]], { remap = true })
 -- "<leader>gq" vim.lsp.buf.formatting_sync  "Format File"
 
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { remap = true })
--- vim.keymap.set('n', '<leader>gj', vim.lsp.buf.formatting_sync, { remap = true })
 vim.keymap.set('n', '<leader>qf', vim.diagnostic.setqflist, { remap = true })
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { remap = true })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { remap = true })
@@ -25,29 +24,11 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { remap = true })
 
 -- Open and close the terminal blAZinGly FaST
 vim.keymap.set('n', '<leader>to', [[:split|term<CR><C-W>J]])
--- If you ever have 99 split buffers open, in a single window, window it may be time to go see a doctor
+-- If you ever have 99 split buffers open, in a single window, it may be time to go see a doctor
 vim.keymap.set('n', '<leader>tc', [[<C-W>99j<C-W><C-Q>]])
 -- Quicksave
 vim.keymap.set('n', '<leader>ww', [[:w<CR>]])
 
+-- vim.keymap.set('n', '<leader>nt', ':Telescope file_browser<CR>', {noremap = true})
 
-vim.keymap.set('n', '<leader>so', [[:SymbolsOutline<CR>]])
-vim.keymap.set('n', '<leader>soo', [[:SymbolsOutlineOpen<CR>]])
-vim.keymap.set('n', '<leader>sc', [[:SymbolsOutlineClose<CR>]])
-
-vim.keymap.set('n', '<leader>nt', [[:NvimTreeOpen<CR>]])
-vim.keymap.set('n', '<leader>ntf', [[:NvimTreeFocus<CR>]])
-vim.keymap.set('n', '<leader>ntt', [[:NvimTreeToggle<CR>]])
-
-
-vim.keymap.set('n', '<leader>dcs', [[:DevcontainerStart<CR>]])
-vim.keymap.set('n', '<leader>dca', [[:DevcontainerAttach<CR>]])
-vim.keymap.set('n', '<leader>dcr', [[:DevcontainerStop<CR>]])
-vim.keymap.set('n', '<leader>dcf', [[:DevcontainerFullScreenEnter<CR>]])
-vim.keymap.set('n', '<leader>dcff', [[:DevcontainerFullScreenExit<CR>]])
-
-vim.keymap.set('n', 'gt', [[:BufferLineCycleNext<CR>]])
-vim.keymap.set('n', 'gT', [[:BufferLineCyclePrev<CR>]])
-
-vim.keymap.set('n', 'm]', [[:BufferLineCycleNext<CR>]])
-vim.keymap.set('n', '[m', [[:BufferLineCyclePrev<CR>]])
+vim.keymap.set('n', '<leader>tt', '[[:tabnew<CR]]>')

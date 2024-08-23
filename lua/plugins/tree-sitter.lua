@@ -1,12 +1,22 @@
-require('nvim-treesitter.install').compilers = {"clang", "gcc"}
+require('nvim-treesitter.install').compilers = { "clang", "gcc" }
 
-local status, ts = pcall(require, "nvim-treesitter.configs")
+local status, ts = pcall(require, 'nvim-treesitter.configs')
 if (not status) then return end
 
-ts.setup {
+local parser_config
+status, parser_config = pcall(require, 'nvim-treesitter.parsers')
+
+if (not status) then return end
+parser_config = parser_config.get_parser_configs()
+
+local opts = {
+  modules = {},
+  ignore_install = {},
+  sync_install = false,
+  auto_install = true,
   highlight = {
     enable = true,
-    disable = {"bash"},
+    disable = { "bash" },
   },
   indent = {
     enable = true,
@@ -24,7 +34,6 @@ ts.setup {
     "dockerfile",
     "go",
     "graphql",
-    "hcl",
     "html",
     "jsdoc",
     "json",
@@ -38,10 +47,12 @@ ts.setup {
     "rust",
     "scss",
     "sql",
+    "templ",
     "terraform",
     "toml",
     "tsx",
     "twig",
+    "vim",
     "yaml",
   },
   autotag = {
@@ -54,7 +65,6 @@ ts.setup {
   }
 }
 
-local parser_config = require 'nvim-treesitter.parsers'.get_parser_configs()
-parser_config.tsx.filetype_to_parsername = {'javascript', 'typescript.tsx'}
-
+ts.setup(opts)
+parser_config.tsx.filetype_to_parsername = { 'javascript', 'typescript.tsx' }
 vim.treesitter.language.register('twig', 'tera')

@@ -1,3 +1,6 @@
+local status, symbols = pcall(require, 'symbols-outline')
+if (not status) then return end
+
 local opts = {
   highlight_hovered_item = true,
   show_guides = true,
@@ -15,7 +18,7 @@ local opts = {
   fold_markers = { '', '' },
   wrap = false,
   keymaps = { -- These keymaps can be a string or a table for multiple keys
-    close = {"<Esc>", "q"},
+    close = { "<Esc>", "q" },
     goto_location = "<Cr>",
     focus_location = "o",
     hover_symbol = "<C-space>",
@@ -62,4 +65,9 @@ local opts = {
   },
 }
 
-require("symbols-outline").setup(opts)
+
+symbols.setup(opts)
+
+vim.keymap.set('n', '<leader>so', [[:SymbolsOutline<CR>]])
+vim.keymap.set('n', '<leader>soo', [[:SymbolsOutlineOpen<CR>]])
+vim.keymap.set('n', '<leader>sc', [[:SymbolsOutlineClose<CR>]])

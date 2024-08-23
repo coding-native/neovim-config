@@ -1,4 +1,7 @@
-require('bufferline').setup{
+local status, bufferline = pcall(require, 'bufferline')
+if (not status) then return end
+
+local opts = {
   options = {
     mode = "tabs",
     themable = true,
@@ -17,3 +20,11 @@ require('bufferline').setup{
     color_icons = true,
   }
 }
+
+bufferline.setup(opts)
+
+vim.keymap.set('n', 'gt', [[:BufferLineCycleNext<CR>]])
+vim.keymap.set('n', 'gT', [[:BufferLineCyclePrev<CR>]])
+
+vim.keymap.set('n', 'm]', [[:BufferLineCycleNext<CR>]])
+vim.keymap.set('n', '[m', [[:BufferLineCyclePrev<CR>]])

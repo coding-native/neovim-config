@@ -17,4 +17,5 @@ vim.opt.softtabstop = 2
 -- Window split
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 

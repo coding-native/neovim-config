@@ -1,7 +1,8 @@
 -- Eviline config for lualine
 -- Author: shadmansaleh
 -- Credit: glepnir
-local lualine = require('lualine')
+local status, lualine = pcall(require, 'lualine')
+if (not status) then return end
 
 -- Color table for highlights
 -- stylua: ignore
@@ -36,7 +37,7 @@ local conditions = {
 -- Config
 local config = {
   options = {
-    disabled_filetypes = { 'NvimTree', 'packer',},
+    disabled_filetypes = { 'NvimTree', 'packer', },
     -- Disable sections and component separators
     component_separators = '',
     section_separators = '',
@@ -83,7 +84,7 @@ ins_left {
   function()
     return '▊'
   end,
-  color = { fg = colors.blue }, -- Sets highlighting of component
+  color = { fg = colors.blue },      -- Sets highlighting of component
   padding = { left = 0, right = 1 }, -- We don't need space before this
 }
 
@@ -158,19 +159,22 @@ ins_left {
 
 ins_left {
   -- Lsp server name .
-   function()
+  function()
     local msg = 'No LSP. Big fuck, tell Tony'
-    local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
-    local clients = vim.lsp.get_active_clients()
+    local buf_ft = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+    local clients = vim.lsp.get_clients()
+
     if next(clients) == nil then
       return msg
     end
+
     for _, client in ipairs(clients) do
       local filetypes = client.config.filetypes
       if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
         return client.name
       end
     end
+
     return msg
   end,
   icon = ' LSP:',
@@ -179,7 +183,7 @@ ins_left {
 
 -- Add components to right sections
 ins_right {
-  'o:encoding', -- option component same as &encoding in viml
+  'o:encoding',       -- option component same as &encoding in viml
   fmt = string.upper, -- I'm not sure why it's upper case either ;)
   cond = conditions.hide_in_width,
   color = { fg = colors.green, gui = 'bold' },
