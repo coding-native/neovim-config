@@ -78,6 +78,7 @@ require('packer').startup(function(use)
   use { 'akinsho/bufferline.nvim' }
   use { 'nvim-lualine/lualine.nvim' }
   use { 'simrat39/symbols-outline.nvim' }
+  use { "ibhagwan/fzf-lua" }
 
   -- Miscellaneous
   use { 'folke/tokyonight.nvim' }
