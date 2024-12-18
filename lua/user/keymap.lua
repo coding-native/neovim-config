@@ -31,4 +31,4 @@ vim.keymap.set('n', '<leader>ww', [[:w<CR>]])
 
 -- vim.keymap.set('n', '<leader>nt', ':Telescope file_browser<CR>', {noremap = true})
 
-vim.keymap.set('n', '<leader>tt', '[[:tabnew<CR]]>')
+vim.keymap.set('n', '<leader>tt', '[[:tabnew<CR>]]')
