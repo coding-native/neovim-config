@@ -31,6 +31,15 @@ local opts = {
         ["q"] = actions.close
       }
     },
+    ripgrep_arguments = {
+      'rg',
+      '--hidden',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case'
+    },
   },
   extensions = {
     live_grep_args = {
