@@ -31,6 +31,18 @@ require('packer').startup(function(use)
   use { 'L3MON4D3/LuaSnip' }
   use { 'saadparwaiz1/cmp_luasnip' }
 
+  -- Debugger
+  use { 'mfussenegger/nvim-dap',
+    requires = {
+      { 'Civitasv/cmake-tools.nvim' },
+      { 'leoluz/nvim-dap-go' },
+      { 'rcarriga/nvim-dap-ui' },
+      { 'theHamsta/nvim-dap-virtual-text' },
+      { 'nvim-neotest/nvim-nio' },
+      { "williamboman/mason.nvim" },
+    },
+  }
+
   -- Telescope
   use { 'nvim-lua/popup.nvim' }
   use { 'nvim-lua/plenary.nvim' }
