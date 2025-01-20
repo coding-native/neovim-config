@@ -2,7 +2,7 @@ local status, ollama = pcall(require, 'ollama')
 if (not status) then return end
 
 local opts = {
-  model = "codellama",
+  model = "deepseek-coder-v2",
   url = "http://127.0.0.1:11434",
   serve = {
     on_start = false,
