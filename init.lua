@@ -13,6 +13,7 @@ require "plugins.harpoon"
 require "plugins.tree-sitter"
 require "plugins.git"
 require "plugins.autopairs"
+require "plugins.dap"
 require "plugins.lsp-config"
 require "plugins.conform"
 
