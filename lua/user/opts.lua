@@ -2,6 +2,7 @@
 vim.opt.mouse = "a"
 vim.g.mapleader = ';'
 vim.opt.autoread = true
+vim.opt.laststatus = 3
 
 -- Line Numbers
 vim.opt.number = true
@@ -17,5 +18,7 @@ vim.opt.softtabstop = 2
 -- Window split
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+
+-- Autoformat
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
