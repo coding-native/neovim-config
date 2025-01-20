@@ -148,10 +148,17 @@ local lsp_flags = {
 
 lspconfig['azure_pipelines_ls'].setup {
   capabilities = capabilities,
-  on_attach = on_attach,
+  on_attach = function(client, bufnr)
+    if vim.api.nvim_get_option_value('filetype', { buf = bufnr }) == "helm" then
+      vim.lsp.stop_client(client.dynamic_capabilities.client_id, true)
+      vim.lsp.buf_detach_client(bufnr, client.dynamic_capabilities.client_id)
+    else
+      on_attach(client, bufnr)
+    end
+  end,
   flags = lsp_flags,
   cmd = { "azure-pipelines-language-server", "--stdio" },
-  root_dir = util.root_pattern('.git', '.env', 'docker-compose.yml', 'helm'),
+  root_dir = util.root_pattern('.git', '.env', 'docker-compose.yml', '.cicd'),
   settings = {
     yaml = {
       schemas = {
@@ -165,12 +172,6 @@ lspconfig['azure_pipelines_ls'].setup {
           "/docker-compose.*.yml",
           "/**/docker-compose.yml"
         },
-        ["kubernetes"] = {
-          "/**/.helm/**/*.yml",
-          "/**/helm/**/*.yml",
-          "/**/.helm/**/*.yaml",
-          "/**/helm/**/*.yaml",
-        }
       }
     }
   }
@@ -251,7 +252,7 @@ lspconfig['helm_ls'].setup {
         path = "yaml-language-server",
         config = {
           schemas = {
-            kubernetes = "templates/**",
+            kubernetes = ".k8s/chart/templates/**",
           },
           completion = true,
           hover = true,
