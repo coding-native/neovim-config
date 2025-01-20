@@ -21,4 +21,3 @@ vim.opt.splitright = true
 
 -- Autoformat
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-

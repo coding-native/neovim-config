@@ -39,7 +39,7 @@ require('packer').startup(function(use)
       { 'nvim-telescope/telescope-live-grep-args.nvim' },
       { 'nvim-telescope/telescope-file-browser.nvim' },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-
+      { 'jvgrootveld/telescope-zoxide' },
     },
     config = function()
       local telescope = require('telescope')
