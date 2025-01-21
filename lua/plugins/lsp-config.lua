@@ -10,7 +10,6 @@ local util = lspconfig.util
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functionssetGroups
 
-
 vim.keymap.set('n', '<leader>go', [[:LspRestart<CR>]])
 
 -- Use an on_attach function to only map the following keys
@@ -136,6 +135,9 @@ cmp.setup({
   }, {
     { name = "buffer", keyword_length = 3 },
   }),
+  experimental = {
+    ghost_text = true
+  }
 })
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -206,6 +208,7 @@ lspconfig['cssls'].setup {
   on_attach = on_attach,
   flags = lsp_flags
 }
+
 lspconfig['dockerls'].setup {
   capabilities = capabilities,
   on_attach = on_attach,
@@ -262,23 +265,134 @@ lspconfig['helm_ls'].setup {
   }
 }
 
-
 lspconfig['jsonls'].setup {
   capabilities = capabilities,
   on_attach = on_attach,
   flags = lsp_flags,
 }
 
-lspconfig['marksman'].setup {
-  capabilities = capabilities,
+lspconfig['lsp_ai'].setup {
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
   on_attach = on_attach,
-  flags = lsp_flags,
-}
-
-lspconfig['pyright'].setup {
-  capabilities = capabilities,
-  on_attach = on_attach,
-  flags = lsp_flags,
+  lsp_flags = lsp_flags,
+  root_dir = vim.fn.getcwd(),
+  filetypes = {
+    "c",
+    "cpp",
+    "css",
+    "dockerfile",
+    "go",
+    "html",
+    "lua",
+    "java",
+    "javascript",
+    "json",
+    "python",
+    "rust",
+    "toml",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
+  init_options = {
+    memory = {
+      -- It is important to use this method as `{}` will be interpreted as an array when it should be an object
+      file_store = vim.empty_dict()
+    },
+    models = {
+      model1 = {
+        type = "open_ai",
+        chat_endpoint = "http://localhost:11434/v1/chat/completions",
+        model = "qwen2.5-coder",
+        auth_token = "ollama"
+      }
+    },
+    actions = {
+      {
+        trigger = "!C",
+        action_display_name = "Chat",
+        model = "model1",
+        parameters = {
+          max_context = 4096,
+          max_tokens = 4096,
+          system = [[
+You are an AI coding assistant. Your task is to complete code snippets. The user's cursor position is marked by \"<CURSOR>\". Follow these steps:
+1. Analyze the code context and the cursor position.
+2. Provide your chain of thought reasoning, wrapped in <reasoning> tags. Include thoughts about the cursor position, what needs to be completed, and any necessary formatting.
+3. Determine the appropriate code to complete the current thought, including finishing partial words or lines.
+4. Replace \"<CURSOR>\" with the necessary code, ensuring proper formatting and line breaks.
+5. Wrap your code solution in <answer> tags.
+Your response should always include both the reasoning and the answer. Pay special attention to completing partial words or lines before adding new lines of code.
+]],
+          messages = {
+            {
+              role = "user",
+              content = "{CODE}"
+            }
+          },
+          post_process = {
+            extractor = "(?s)<answer>(.*?)</answer>"
+          },
+        },
+      },
+    },
+    completion = {
+      model = "model1",
+      parameters = {
+        max_context = 2000,
+        options = {
+          num_predict = 32
+        },
+        system = "Instructions:\n- You are an AI programming assistant.\n- Given a piece of code with the cursor location marked by \"<CURSOR>\", replace \"<CURSOR>\" with the correct code or comment.\n- First, think step-by-step.\n- Describe your plan for what to build in pseudocode, written out in great detail.\n- Then output the code replacing the \"<CURSOR>\"\n- Ensure that your completion fits within the language context of the provided code snippet (e.g., Python, JavaScript, Rust).\n\nRules:\n- Only respond with code or comments.\n- Only replace \"<CURSOR>\"; do not include any previously written code.\n- Never include \"<CURSOR>\" in your response\n- If the cursor is within a comment, complete the comment meaningfully.\n- Handle ambiguous cases by providing the most contextually appropriate completion.\n- Be consistent with your responses.",
+        messages = {
+          {
+            role = "user",
+            content = "def greet(name):\n    print(f\"Hello, {<CURSOR>}\")"
+          },
+          {
+            role = "assistant",
+            content = "name"
+          },
+          {
+            role = "user",
+            content = "function sum(a, b) {\n    return a + <CURSOR>;\n}"
+          },
+          {
+            role = "assistant",
+            content = "b"
+          },
+          {
+            role = "user",
+            content = "fn multiply(a: i32, b: i32) -> i32 {\n    a * <CURSOR>\n}"
+          },
+          {
+            role = "assistant",
+            content = "b"
+          },
+          {
+            role = "user",
+            content = "# <CURSOR>\ndef add(a, b):\n    return a + b"
+          },
+          {
+            role = "assistant",
+            content = "Adds two numbers"
+          },
+          {
+            role = "user",
+            content = "# This function checks if a number is even\n<CURSOR>"
+          },
+          {
+            role = "assistant",
+            content = "def is_even(n):\n    return n % 2 == 0"
+          },
+          {
+            role = "user",
+            content = "{CODE}"
+          }
+        }
+      },
+    },
+  },
 }
 
 lspconfig['lua_ls'].setup {
@@ -304,6 +418,18 @@ lspconfig['lua_ls'].setup {
   }
 }
 
+lspconfig['marksman'].setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  flags = lsp_flags,
+}
+
+lspconfig['pyright'].setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  flags = lsp_flags,
+}
+
 lspconfig['rust_analyzer'].setup {
   capabilities = capabilities,
   on_attach = on_attach,
@@ -313,7 +439,6 @@ lspconfig['rust_analyzer'].setup {
     ["rust-analyzer"] = {}
   }
 }
-
 
 lspconfig['tailwindcss'].setup {
   capabilities = capabilities,

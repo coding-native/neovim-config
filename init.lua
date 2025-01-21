@@ -29,8 +29,7 @@ require "plugins.ollama"
 require "plugins.theme"
 
 vim.cmd [[ colorscheme tokyonight-night ]]
-vim.lsp.set_log_level("debug")
-
+vim.lsp.set_log_level("info")
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
