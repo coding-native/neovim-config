@@ -22,14 +22,19 @@ require('packer').startup(function(use)
   use { 'wbthomason/packer.nvim' }
 
   -- LSP and Code Completion
-  use { 'neovim/nvim-lspconfig' }
-  use { 'hrsh7th/cmp-nvim-lsp' }
-  use { 'hrsh7th/cmp-buffer' }
-  use { 'hrsh7th/cmp-path' }
-  use { 'hrsh7th/cmp-cmdline' }
-  use { 'hrsh7th/nvim-cmp' }
-  use { 'L3MON4D3/LuaSnip' }
-  use { 'saadparwaiz1/cmp_luasnip' }
+  use { 'neovim/nvim-lspconfig',
+    requires = {
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      { 'hrsh7th/cmp-cmdline' },
+      { 'hrsh7th/nvim-cmp' },
+      { 'L3MON4D3/LuaSnip' },
+      { 'saadparwaiz1/cmp_luasnip' },
+      { 'towolf/vim-helm',         ft = 'helm' },
+      { 'joerdav/templ.vim' },
+    },
+  }
 
   -- Debugger
   use { 'mfussenegger/nvim-dap',
@@ -80,8 +85,6 @@ require('packer').startup(function(use)
   use { 'tpope/vim-surround' }
   use { 'tpope/vim-commentary' }
   use { 'ap/vim-css-color' }
-  use { 'towolf/vim-helm', ft = 'helm' }
-  use { 'joerdav/templ.vim' }
   use { 'stevearc/conform.nvim' }
 
   -- Symbol & Tree Explorer, Sleeick Tabs, Statuslin
