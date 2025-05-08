@@ -1,3 +1,16 @@
+--- Check if a program is executable
+---@param executable string
+---@return boolean is_executable
+local function is_executable(executable)
+  return vim.fn.executable(executable) == 1
+end
+
+--- Check if dev is using Microsoft Sad Time OS
+---@return boolean is_windows
+local function is_windows()
+  return vim.fn.has("win64") == 1 or vim.fn.has("win32") == 1 or vim.fn.has("win16") == 1
+end
+
 require "user.opts"
 require "user.keymap"
 require "user.autosave"
@@ -5,7 +18,17 @@ require "user.autoload"
 require "user.autocmds"
 require "user.filetypes"
 require "user.commands"
-require "user.zsh"
+
+-- OS Agnostic Shell Setup
+if is_windows() then
+  require "user.powershell"
+else
+  if is_executable("zsh") then
+    require "user.zsh"
+  else
+    require "user.bash"
+  end
+end
 
 require "plugins.packer"
 require "plugins.telescope"
