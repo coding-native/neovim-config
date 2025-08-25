@@ -117,6 +117,15 @@ require('packer').startup(function(use)
   }
 
   use { 'mg979/vim-visual-multi' }
+  use { 'zbirenbaum/copilot.lua' }
+  use {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function ()
+      require("copilot_cmp").setup()
+    end
+  }
+  use { 'CopilotC-Nvim/CopilotChat.nvim' }
 
   -- Custom
   -- use '~/.nvim/custom-plugins/nvim-docker'

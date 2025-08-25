@@ -68,6 +68,3 @@ local opts = {
 
 symbols.setup(opts)
 
-vim.keymap.set('n', '<leader>so', [[:SymbolsOutline<CR>]])
-vim.keymap.set('n', '<leader>soo', [[:SymbolsOutlineOpen<CR>]])
-vim.keymap.set('n', '<leader>sc', [[:SymbolsOutlineClose<CR>]])
