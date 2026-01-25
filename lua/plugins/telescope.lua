@@ -99,5 +99,7 @@ vim.keymap.set('n', '<leader>fb', ':Telescope file_browser<CR>', { noremap = tru
 vim.keymap.set('n', '<leader>fbb', ":Telescope file_browser path=%:p:h select_buffer=true<CR>", { noremap = true })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags)
 
+telescope.load_extension('live_grep_args')
+telescope.load_extension('file_browser')
 telescope.load_extension('zoxide')
 vim.keymap.set('n', '<leader>cd', telescope.extensions.zoxide.list)

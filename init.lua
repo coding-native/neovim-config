@@ -11,6 +11,7 @@ local function is_windows()
   return vim.fn.has("win64") == 1 or vim.fn.has("win32") == 1 or vim.fn.has("win16") == 1
 end
 
+require "plugins.packer"
 require "user.opts"
 require "user.keymap"
 require "user.autosave"
@@ -30,7 +31,6 @@ else
   end
 end
 
-require "plugins.packer"
 require "plugins.telescope"
 require "plugins.harpoon"
 require "plugins.tree-sitter"
