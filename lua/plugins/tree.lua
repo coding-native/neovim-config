@@ -20,7 +20,3 @@ local opts = {
 }
 
 nvim_tree.setup(opts)
-
-vim.keymap.set('n', '<leader>nt', [[:NvimTreeOpen<CR>]])
-vim.keymap.set('n', '<leader>ntf', [[:NvimTreeFocus<CR>]])
-vim.keymap.set('n', '<leader>ntt', [[:NvimTreeToggle<CR>]])
